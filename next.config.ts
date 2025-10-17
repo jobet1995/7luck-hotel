@@ -5,6 +5,16 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
   async headers() {
     return [
       {
@@ -16,7 +26,7 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.gstatic.com",
               "style-src 'self' 'unsafe-inline' https://*.googleapis.com https://*.gstatic.com",
-              "img-src 'self' data: https: blob:",
+              "img-src 'self' data: https: blob: https://images.unsplash.com",
               "font-src 'self' https://*.googleapis.com https://*.gstatic.com",
               "connect-src 'self' https://*.googleapis.com https://*.google.com",
               "frame-src 'self' https://www.google.com",

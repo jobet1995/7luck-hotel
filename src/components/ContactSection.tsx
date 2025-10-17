@@ -53,12 +53,16 @@ export default function ContactSection() {
       ref={ref}
       suppressHydrationWarning={true}
     >
-      <div className="container mx-auto px-4 lg:px-8">
+      <div
+        className="container mx-auto px-4 lg:px-8"
+        suppressHydrationWarning={true}
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
+          suppressHydrationWarning={true}
         >
           <h2
             style={{ color: "#003366" }}
@@ -76,7 +80,10 @@ export default function ContactSection() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div
+          className="grid lg:grid-cols-2 gap-12"
+          suppressHydrationWarning={true}
+        >
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}

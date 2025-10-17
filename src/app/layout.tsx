@@ -3,6 +3,7 @@ import { Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import NavigationWrapper from "@/components/NavigationWrapper";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -36,9 +37,13 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${playfairDisplay.variable} antialiased`}
       >
-        <Navbar />
+        <NavigationWrapper>
+          <Navbar />
+        </NavigationWrapper>
         <main>{children}</main>
-        <Footer />
+        <NavigationWrapper>
+          <Footer />
+        </NavigationWrapper>
       </body>
     </html>
   );
