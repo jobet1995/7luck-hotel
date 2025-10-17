@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
 import { Award, Heart, Users } from "lucide-react";
+import Image from "next/image";
 
 export default function AboutSection() {
   const ref = useRef(null);
@@ -43,10 +44,13 @@ export default function AboutSection() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1737807478491-6e258b44bd04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMGludGVyaW9yfGVufDF8fHx8MTc2MDY4ODYwNXww&ixlib=rb-4.1.0&q=80&w=1080"
               alt="Luxury Hotel Interior"
+              width={540}
+              height={360}
               className="rounded-lg shadow-2xl"
+              quality={85}
             />
             <div
               style={{ backgroundColor: "rgba(212, 175, 55, 0.2)" }}

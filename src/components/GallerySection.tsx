@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
+import Image from "next/image";
 
 export default function GallerySection() {
   const ref = useRef(null);
@@ -72,10 +73,13 @@ export default function GallerySection() {
               className="relative overflow-hidden rounded-lg shadow-lg group cursor-pointer h-80"
               onClick={() => setSelectedImage(image.url)}
             >
-              <img
+              <Image
                 src={image.url}
                 alt={image.title}
+                width={400}
+                height={320}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                quality={85}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                 <h3 className="text-white text-xl font-playfair">

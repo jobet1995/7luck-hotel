@@ -10,9 +10,9 @@ import {
   Dumbbell,
   Wifi,
   Car,
-  Coffee,
   Wind,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function AmenitiesSection() {
   const ref = useRef(null);
@@ -130,10 +130,13 @@ export default function AmenitiesSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative overflow-hidden rounded-lg shadow-xl group"
           >
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1697216563517-e48622ba218c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cm9waWNhbCUyMHJlc29ydCUyMHBvb2x8ZW58MXx8fHwxNzYwNjgzNTkzfDA&ixlib=rb-4.1.0&q=80&w=1080"
               alt="Resort Pool"
+              width={540}
+              height={384}
               className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+              quality={85}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
               <div>
@@ -153,10 +156,13 @@ export default function AmenitiesSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="relative overflow-hidden rounded-lg shadow-xl group"
           >
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1646598446711-e320fe4af62e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNvcnQlMjBiZWFjaCUyMHZpZXd8ZW58MXx8fHwxNzYwNzAwMjc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
               alt="Beach View"
+              width={540}
+              height={384}
               className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+              quality={85}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
               <div>
