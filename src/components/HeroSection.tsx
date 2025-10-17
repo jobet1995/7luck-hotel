@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 export default function HeroSection() {
   const scrollToAbout = () => {
@@ -18,10 +19,13 @@ export default function HeroSection() {
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1667842288007-ea49b67ce9cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0cm9waWNhbCUyMHJlc29ydHxlbnwxfHx8fDE3NjA3MDAyNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
           alt="7-Luck Hotel Resort"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          quality={85}
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"></div>

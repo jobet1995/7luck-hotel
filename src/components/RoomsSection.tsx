@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
 import { Maximize2, Users, Star } from "lucide-react";
+import Image from "next/image";
 
 export default function RoomsSection() {
   const ref = useRef(null);
@@ -83,10 +84,13 @@ export default function RoomsSection() {
               className="group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
             >
               <div className="relative overflow-hidden h-64">
-                <img
+                <Image
                   src={room.image}
                   alt={room.name}
+                  width={400}
+                  height={256}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  quality={85}
                 />
                 <div
                   style={{ backgroundColor: "#d4af37" }}
