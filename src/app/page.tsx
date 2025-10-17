@@ -4,6 +4,8 @@ import RoomsSection from "@/components/RoomsSection";
 import AmenitiesSection from "@/components/AmenitiesSection";
 import GallerySection from "@/components/GallerySection";
 import ContactSection from "@/components/ContactSection";
+import ChatWidgetWrapper from "@/components/widgets/ChatWidgetWrapper";
+
 export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
@@ -15,6 +17,7 @@ export default function Home() {
         <GallerySection />
         <ContactSection />
       </div>
+      <ChatWidgetWrapper />
     </div>
   );
 }

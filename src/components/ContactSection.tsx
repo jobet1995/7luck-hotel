@@ -51,6 +51,7 @@ export default function ContactSection() {
       style={{ backgroundColor: "#f8f8f8" }}
       className="py-20"
       ref={ref}
+      suppressHydrationWarning={true}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
@@ -85,6 +86,7 @@ export default function ContactSection() {
             <form
               onSubmit={handleSubmit}
               className="bg-white p-8 rounded-lg shadow-lg"
+              suppressHydrationWarning={true}
             >
               <div className="mb-6">
                 <label
