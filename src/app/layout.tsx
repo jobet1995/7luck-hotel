@@ -7,14 +7,18 @@ import Footer from "@/components/Footer";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"], // Reduced weights for better performance
   display: "swap",
+  preload: true, // Explicitly enable preloading
+  fallback: ["system-ui", "sans-serif"],
 });
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfair-display",
   subsets: ["latin"],
   display: "swap",
+  preload: false, // Disable preload since it's only used for headings
+  fallback: ["serif"],
 });
 
 export const metadata: Metadata = {
