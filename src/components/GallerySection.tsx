@@ -3,13 +3,15 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef, useState } from "react";
-import { X } from "lucide-react";
 import Image from "next/image";
+import ImageGalleryModal from "./ImageGalleryModal";
 
 export default function GallerySection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null,
+  );
 
   const galleryImages = [
     {
@@ -37,6 +39,8 @@ export default function GallerySection() {
       title: "Private Villa",
     },
   ];
+
+  const imageUrls = galleryImages.map((img) => img.url);
 
   return (
     <section id="gallery" className="py-20 bg-white" ref={ref}>
@@ -71,7 +75,7 @@ export default function GallerySection() {
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="relative overflow-hidden rounded-lg shadow-lg group cursor-pointer h-80"
-              onClick={() => setSelectedImage(image.url)}
+              onClick={() => setSelectedImageIndex(index)}
             >
               <Image
                 src={image.url}
@@ -91,30 +95,14 @@ export default function GallerySection() {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
-      {selectedImage && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
-        >
-          <button
-            className="absolute top-4 right-4 text-white hover:text-[#d4af37] transition-colors"
-            onClick={() => setSelectedImage(null)}
-          >
-            <X size={32} />
-          </button>
-          <motion.img
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            src={selectedImage}
-            alt="Gallery Image"
-            className="max-w-full max-h-full object-contain"
-          />
-        </motion.div>
-      )}
+      {/* Image Gallery Modal */}
+      <ImageGalleryModal
+        isOpen={selectedImageIndex !== null}
+        onClose={() => setSelectedImageIndex(null)}
+        images={imageUrls}
+        currentIndex={selectedImageIndex || 0}
+        title="Hotel Gallery"
+      />
     </section>
   );
 }

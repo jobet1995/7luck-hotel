@@ -95,7 +95,7 @@ export default function ContactSection() {
               className="bg-white p-8 rounded-lg shadow-lg"
               suppressHydrationWarning={true}
             >
-              <div className="mb-6">
+              <div className="mb-6" suppressHydrationWarning={true}>
                 <label
                   htmlFor="name"
                   style={{ color: "#003366" }}
@@ -113,14 +113,16 @@ export default function ContactSection() {
                   }
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors"
                   placeholder="John Doe"
+                  suppressHydrationWarning={true}
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-6" suppressHydrationWarning={true}>
                 <label
                   htmlFor="email"
                   style={{ color: "#003366" }}
                   className="block mb-2"
+                  suppressHydrationWarning={true}
                 >
                   Email Address
                 </label>
@@ -134,10 +136,11 @@ export default function ContactSection() {
                   }
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors"
                   placeholder="john@example.com"
+                  suppressHydrationWarning={true}
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-6" suppressHydrationWarning={true}>
                 <label
                   htmlFor="phone"
                   style={{ color: "#003366" }}
@@ -154,10 +157,11 @@ export default function ContactSection() {
                   }
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors"
                   placeholder="+1 (555) 000-0000"
+                  suppressHydrationWarning={true}
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-6" suppressHydrationWarning={true}>
                 <label
                   htmlFor="message"
                   style={{ color: "#003366" }}
@@ -175,6 +179,7 @@ export default function ContactSection() {
                   rows={5}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors resize-none"
                   placeholder="Tell us about your stay preferences..."
+                  suppressHydrationWarning={true}
                 />
               </div>
 

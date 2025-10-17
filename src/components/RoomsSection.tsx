@@ -2,52 +2,151 @@
 
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Maximize2, Users, Star } from "lucide-react";
 import Image from "next/image";
+import RoomDetailsModal from "./RoomDetailsModal";
+
+interface Room {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+  size: string;
+  capacity: number;
+  guests: string;
+  rating: number;
+  bedType: string;
+  view: string;
+  price: number;
+  originalPrice?: number;
+  amenities: string[];
+  images: string[];
+}
 
 export default function RoomsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const rooms = [
+  const rooms: Room[] = [
     {
+      id: "deluxe-suite",
       name: "Deluxe Suite",
       image:
         "https://images.unsplash.com/photo-1759223198981-661cadbbff36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMHN1aXRlJTIwYmVkcm9vbXxlbnwxfHx8fDE3NjA2MzE4MjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       description: "Spacious luxury suite with ocean view and modern amenities",
       size: "45m²",
+      capacity: 3,
       guests: "2-3",
       rating: 4.9,
+      bedType: "King Bed",
+      view: "Ocean",
+      price: 299,
+      originalPrice: 399,
+      amenities: [
+        "Free WiFi",
+        "Room Service",
+        "Balcony",
+        "Mini Bar",
+        "Smart TV",
+      ],
+      images: [
+        "https://images.unsplash.com/photo-1759223198981-661cadbbff36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMHN1aXRlJTIwYmVkcm9vbXxlbnwxfHx8fDE3NjA2MzE4MjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1729605411476-defbdab14c54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob3RlbCUyMGRlbHV4ZSUyMHJvb218ZW58MXx8fHwxNzYwNjI4NTgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1694967832949-09984640b143?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB2aWxsYSUyMHJlc29ydHxlbnwxfHx8fDE3NjA3MDAyNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1748652252546-6bea5d896bd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVzaWRlbnRpYWwlMjBzdWl0ZSUyMGhvdGVsfGVufDF8fHx8MTc2MDY3MzU4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      ],
     },
     {
+      id: "premium-ocean",
       name: "Premium Ocean View",
       image:
         "https://images.unsplash.com/photo-1729605411476-defbdab14c54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob3RlbCUyMGRlbHV4ZSUyMHJvb218ZW58MXx8fHwxNzYwNjI4NTgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
       description: "Breathtaking views with premium furnishings and balcony",
       size: "38m²",
+      capacity: 2,
       guests: "2",
       rating: 4.8,
+      bedType: "Queen Bed",
+      view: "Ocean",
+      price: 249,
+      originalPrice: 329,
+      amenities: ["Free WiFi", "Balcony", "Coffee Machine", "Smart TV", "Safe"],
+      images: [
+        "https://images.unsplash.com/photo-1729605411476-defbdab14c54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob3RlbCUyMGRlbHV4ZSUyMHJvb218ZW58MXx8fHwxNzYwNjI4NTgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1759223198981-661cadbbff36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMHN1aXRlJTIwYmVkcm9vbXxlbnwxfHx8fDE3NjA2MzE4MjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1694967832949-09984640b143?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB2aWxsYSUyMHJlc29ydHxlbnwxfHx8fDE3NjA3MDAyNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      ],
     },
     {
+      id: "royal-villa",
       name: "Royal Villa",
       image:
         "https://images.unsplash.com/photo-1694967832949-09984640b143?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB2aWxsYSUyMHJlc29ydHxlbnwxfHx8fDE3NjA3MDAyNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       description: "Private villa with pool, garden, and exclusive services",
       size: "85m²",
+      capacity: 6,
       guests: "4-6",
       rating: 5.0,
+      bedType: "King Bed + Sofa Bed",
+      view: "Garden",
+      price: 599,
+      originalPrice: 799,
+      amenities: [
+        "Private Pool",
+        "Garden",
+        "Butler Service",
+        "Free WiFi",
+        "Parking",
+        "Fitness Center",
+      ],
+      images: [
+        "https://images.unsplash.com/photo-1694967832949-09984640b143?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB2aWxsYSUyMHJlc29ydHxlbnwxfHx8fDE3NjA3MDAyNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1759223198981-661cadbbff36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMHN1aXRlJTIwYmVkcm9vbXxlbnwxfHx8fDE3NjA2MzE4MjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1729605411476-defbdab14c54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob3RlbCUyMGRlbHV4ZSUyMHJvb218ZW58MXx8fHwxNzYwNjI4NTgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1748652252546-6bea5d896bd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVzaWRlbnRpYWwlMjBzdWl0ZSUyMGhvdGVsfGVufDF8fHx8MTc2MDY3MzU4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      ],
     },
     {
+      id: "presidential-suite",
       name: "Presidential Suite",
       image:
         "https://images.unsplash.com/photo-1748652252546-6bea5d896bd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVzaWRlbnRpYWwlMjBzdWl0ZSUyMGhvdGVsfGVufDF8fHx8MTc2MDY3MzU4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       description: "Ultimate luxury with panoramic views and VIP treatment",
       size: "120m²",
+      capacity: 8,
       guests: "4-8",
       rating: 5.0,
+      bedType: "King Bed + 2 Queen Beds",
+      view: "Panoramic",
+      price: 899,
+      originalPrice: 1199,
+      amenities: [
+        "Private Pool",
+        "Butler Service",
+        "VIP Lounge Access",
+        "Free WiFi",
+        "Parking",
+        "Fitness Center",
+        "Spa Access",
+      ],
+      images: [
+        "https://images.unsplash.com/photo-1748652252546-6bea5d896bd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVzaWRlbnRpYWwlMjBzdWl0ZSUyMGhvdGVsfGVufDF8fHx8MTc2MDY3MzU4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1759223198981-661cadbbff36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMHN1aXRlJTIwYmVkcm9vbXxlbnwxfHx8fDE3NjA2MzE4MjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1729605411476-defbdab14c54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob3RlbCUyMGRlbHV4ZSUyMHJvb218ZW58MXx8fHwxNzYwNjI4NTgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1694967832949-09984640b143?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB2aWxsYSUyMHJlc29ydHxlbnwxfHx8fDE3NjA3MDAyNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      ],
     },
   ];
+
+  const handleViewDetails = (room: Room) => {
+    console.log("View Details clicked for room:", room.name);
+    setSelectedRoom(room);
+    setIsModalOpen(true);
+    console.log("Modal state set to:", true);
+  };
 
   return (
     <section id="rooms" className="py-20 bg-white" ref={ref}>
@@ -127,6 +226,7 @@ export default function RoomsSection() {
                 </div>
 
                 <button
+                  onClick={() => handleViewDetails(room)}
                   style={{ backgroundColor: "#003366", color: "#f8f8f8" }}
                   className="w-full py-2.5 rounded hover:opacity-90 transition-all duration-300 group-hover:shadow-lg"
                 >
@@ -151,6 +251,18 @@ export default function RoomsSection() {
           </button>
         </motion.div>
       </div>
+
+      {/* Room Details Modal */}
+      {isModalOpen && (
+        <RoomDetailsModal
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedRoom(null);
+          }}
+          room={selectedRoom}
+        />
+      )}
     </section>
   );
 }
