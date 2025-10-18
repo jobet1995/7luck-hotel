@@ -81,7 +81,7 @@ export default function ContactSection() {
         </motion.div>
 
         <div
-          className="grid lg:grid-cols-2 gap-12"
+          className="grid lg:grid-cols-2 gap-8 lg:gap-12"
           suppressHydrationWarning={true}
         >
           {/* Contact Form */}
@@ -89,6 +89,7 @@ export default function ContactSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
+            suppressHydrationWarning={true}
           >
             <form
               onSubmit={handleSubmit}
@@ -100,6 +101,7 @@ export default function ContactSection() {
                   htmlFor="name"
                   style={{ color: "#003366" }}
                   className="block mb-2"
+                  suppressHydrationWarning={true}
                 >
                   Full Name
                 </label>
@@ -145,6 +147,7 @@ export default function ContactSection() {
                   htmlFor="phone"
                   style={{ color: "#003366" }}
                   className="block mb-2"
+                  suppressHydrationWarning={true}
                 >
                   Phone Number
                 </label>
@@ -166,6 +169,7 @@ export default function ContactSection() {
                   htmlFor="message"
                   style={{ color: "#003366" }}
                   className="block mb-2"
+                  suppressHydrationWarning={true}
                 >
                   Message
                 </label>
@@ -187,6 +191,7 @@ export default function ContactSection() {
                 type="submit"
                 style={{ backgroundColor: "#d4af37", color: "#003366" }}
                 className="w-full py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:shadow-xl"
+                suppressHydrationWarning={true}
               >
                 Send Message
               </button>
@@ -198,6 +203,7 @@ export default function ContactSection() {
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
+            suppressHydrationWarning={true}
           >
             <div className="space-y-6 mb-8">
               {contactInfo.map((info, index) => (
@@ -207,17 +213,19 @@ export default function ContactSection() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="flex items-start space-x-4 bg-white p-6 rounded-lg shadow-md"
+                  suppressHydrationWarning={true}
                 >
                   <div
                     style={{ backgroundColor: "#003366" }}
                     className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
+                    suppressHydrationWarning={true}
                   >
                     <info.icon
                       style={{ color: "#d4af37" }}
                       className="w-6 h-6"
                     />
                   </div>
-                  <div>
+                  <div suppressHydrationWarning={true}>
                     <h3 style={{ color: "#003366" }} className="mb-1">
                       {info.title}
                     </h3>
@@ -233,6 +241,7 @@ export default function ContactSection() {
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.4 }}
               className="rounded-lg overflow-hidden shadow-lg h-64"
+              suppressHydrationWarning={true}
             >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
@@ -242,6 +251,7 @@ export default function ContactSection() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                suppressHydrationWarning={true}
               ></iframe>
             </motion.div>
           </motion.div>

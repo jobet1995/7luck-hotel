@@ -21,7 +21,6 @@ export default function Modal({
   size = "md",
   showCloseButton = true,
 }: ModalProps) {
-  console.log("Modal component rendered with isOpen:", isOpen, "title:", title);
   // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {

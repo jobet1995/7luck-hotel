@@ -8,8 +8,11 @@ import ChatWidgetWrapper from "@/components/widgets/ChatWidgetWrapper";
 
 export default function Home() {
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      <div className="relative">
+    <div
+      className="min-h-screen overflow-x-hidden"
+      suppressHydrationWarning={true}
+    >
+      <div className="relative" suppressHydrationWarning={true}>
         <HeroSection />
         <AboutSection />
         <RoomsSection />

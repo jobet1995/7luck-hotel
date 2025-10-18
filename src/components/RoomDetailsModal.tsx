@@ -1,15 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import {
-  Check,
-  Users,
-  Wifi,
-  Car,
-  Utensils,
-  Dumbbell,
-  LucideIcon,
-} from "lucide-react";
+import React from "react";
+import { useRouter } from "next/navigation";
+import { Check, Users, Wifi, Car, Utensils, Dumbbell } from "lucide-react";
 import Modal from "./Modal";
 import Image from "next/image";
 
@@ -36,6 +30,7 @@ export default function RoomDetailsModal({
   onClose,
   room,
 }: RoomDetailsModalProps) {
+  const router = useRouter();
   console.log(
     "RoomDetailsModal rendered with isOpen:",
     isOpen,
@@ -46,7 +41,9 @@ export default function RoomDetailsModal({
   // Don't render if room is null
   if (!room) return null;
 
-  const amenityIcons: { [key: string]: LucideIcon } = {
+  const amenityIcons: {
+    [key: string]: React.ComponentType<{ className?: string }>;
+  } = {
     "Free WiFi": Wifi,
     Parking: Car,
     "Room Service": Utensils,
@@ -168,6 +165,10 @@ export default function RoomDetailsModal({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
+              onClick={() => {
+                onClose();
+                router.push(`/booking/${room.id}`);
+              }}
               className="w-full mt-6 bg-gradient-to-r from-blue-900 to-purple-900 text-white py-4 rounded-lg hover:from-purple-900 hover:to-blue-900 transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
             >
               Book This Room

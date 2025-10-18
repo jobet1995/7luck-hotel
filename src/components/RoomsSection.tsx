@@ -5,6 +5,8 @@ import { useInView } from "motion/react";
 import { useRef, useState } from "react";
 import { Maximize2, Users, Star } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import AllRoomsModal from "./AllRoomsModal";
 import RoomDetailsModal from "./RoomDetailsModal";
 
 interface Room {
@@ -28,7 +30,8 @@ export default function RoomsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAllRoomsModalOpen, setIsAllRoomsModalOpen] = useState(false);
+  const router = useRouter();
 
   const rooms: Room[] = [
     {
@@ -142,127 +145,132 @@ export default function RoomsSection() {
   ];
 
   const handleViewDetails = (room: Room) => {
-    console.log("View Details clicked for room:", room.name);
     setSelectedRoom(room);
-    setIsModalOpen(true);
-    console.log("Modal state set to:", true);
   };
 
   return (
-    <section id="rooms" className="py-20 bg-white" ref={ref}>
-      <div className="container mx-auto px-4 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2
-            style={{ color: "#003366" }}
-            className="font-playfair text-4xl md:text-5xl mb-4"
+    <>
+      <section id="rooms" className="py-20 bg-white" ref={ref}>
+        <div className="container mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
           >
-            Our Luxurious Rooms
-          </h2>
-          <div
-            style={{ backgroundColor: "#d4af37" }}
-            className="w-20 h-1 mx-auto mb-6"
-          ></div>
-          <p className="text-foreground/70 max-w-2xl mx-auto">
-            Each room is thoughtfully designed to provide the perfect blend of
-            comfort, elegance, and modern luxury.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {rooms.map((room, index) => (
-            <motion.div
-              key={room.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+            <h2
+              style={{ color: "#003366" }}
+              className="font-playfair text-4xl md:text-5xl mb-4"
             >
-              <div className="relative overflow-hidden h-64">
-                <Image
-                  src={room.image}
-                  alt={room.name}
-                  width={400}
-                  height={256}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  quality={85}
-                />
-                <div
-                  style={{ backgroundColor: "#d4af37" }}
-                  className="absolute top-4 right-4 px-3 py-1 rounded-full flex items-center gap-1"
-                >
-                  <Star
-                    style={{ color: "#003366", fill: "#003366" }}
-                    className="w-4 h-4"
+              Our Luxurious Rooms
+            </h2>
+            <div
+              style={{ backgroundColor: "#d4af37" }}
+              className="w-20 h-1 mx-auto mb-6"
+            ></div>
+            <p className="text-foreground/70 max-w-2xl mx-auto">
+              Each room is thoughtfully designed to provide the perfect blend of
+              comfort, elegance, and modern luxury.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {rooms.map((room, index) => (
+              <motion.div
+                key={room.name}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              >
+                <div className="relative overflow-hidden h-64">
+                  <Image
+                    src={room.image}
+                    alt={room.name}
+                    width={400}
+                    height={256}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    quality={85}
                   />
-                  <span style={{ color: "#003366" }}>{room.rating}</span>
-                </div>
-              </div>
-
-              <div className="p-6">
-                <h3 style={{ color: "#003366" }} className="text-xl mb-2">
-                  {room.name}
-                </h3>
-                <p className="text-foreground/70 text-sm mb-4">
-                  {room.description}
-                </p>
-
-                <div className="flex items-center justify-between text-sm text-foreground/60 mb-4">
-                  <div className="flex items-center gap-1">
-                    <Maximize2
-                      style={{ color: "#d4af37" }}
+                  <div
+                    style={{ backgroundColor: "#d4af37" }}
+                    className="absolute top-4 right-4 px-3 py-1 rounded-full flex items-center gap-1"
+                  >
+                    <Star
+                      style={{ color: "#003366", fill: "#003366" }}
                       className="w-4 h-4"
                     />
-                    <span>{room.size}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Users style={{ color: "#d4af37" }} className="w-4 h-4" />
-                    <span>{room.guests} guests</span>
+                    <span style={{ color: "#003366" }}>{room.rating}</span>
                   </div>
                 </div>
 
-                <button
-                  onClick={() => handleViewDetails(room)}
-                  style={{ backgroundColor: "#003366", color: "#f8f8f8" }}
-                  className="w-full py-2.5 rounded hover:opacity-90 transition-all duration-300 group-hover:shadow-lg"
-                >
-                  View Details
-                </button>
-              </div>
-            </motion.div>
-          ))}
+                <div className="p-6">
+                  <h3 style={{ color: "#003366" }} className="text-xl mb-2">
+                    {room.name}
+                  </h3>
+                  <p className="text-foreground/70 text-sm mb-4">
+                    {room.description}
+                  </p>
+
+                  <div className="flex items-center justify-between text-sm text-foreground/60 mb-4">
+                    <div className="flex items-center gap-1">
+                      <Maximize2
+                        style={{ color: "#d4af37" }}
+                        className="w-4 h-4"
+                      />
+                      <span>{room.size}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Users style={{ color: "#d4af37" }} className="w-4 h-4" />
+                      <span>{room.guests} guests</span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleViewDetails(room)}
+                    style={{ backgroundColor: "#003366", color: "#f8f8f8" }}
+                    className="w-full py-2.5 rounded hover:opacity-90 transition-all duration-300 group-hover:shadow-lg"
+                  >
+                    View Details
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-center mt-12"
+          >
+            <button
+              onClick={() => setIsAllRoomsModalOpen(true)}
+              style={{ backgroundColor: "#d4af37", color: "#003366" }}
+              className="px-8 py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:shadow-xl"
+            >
+              Explore All Rooms
+            </button>
+          </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center mt-12"
-        >
-          <button
-            style={{ backgroundColor: "#d4af37", color: "#003366" }}
-            className="px-8 py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:shadow-xl"
-          >
-            Explore All Rooms
-          </button>
-        </motion.div>
-      </div>
+        {/* All Rooms Modal */}
+        <AllRoomsModal
+          isOpen={isAllRoomsModalOpen}
+          onClose={() => setIsAllRoomsModalOpen(false)}
+          rooms={rooms}
+          onViewRoomDetails={(room) => setSelectedRoom(room)}
+        />
+      </section>
 
-      {/* Room Details Modal */}
-      {isModalOpen && (
+      {/* Room Details Modal - Rendered outside main section */}
+      {selectedRoom && (
         <RoomDetailsModal
-          isOpen={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false);
-            setSelectedRoom(null);
-          }}
+          isOpen={!!selectedRoom}
+          onClose={() => setSelectedRoom(null)}
           room={selectedRoom}
         />
       )}
-    </section>
+    </>
   );
 }

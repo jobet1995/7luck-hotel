@@ -36,13 +36,7 @@ export default function ImageGalleryModal({
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={title}
-      size="full"
-      showCloseButton={true}
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title={title} size="full">
       <div className="relative h-full flex items-center justify-center">
         {/* Main Image */}
         <motion.div

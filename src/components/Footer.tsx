@@ -119,16 +119,16 @@ export default function Footer() {
               Subscribe to our newsletter for exclusive offers and updates.
             </p>
             <form className="w-full" onSubmit={(e) => e.preventDefault()}>
-              <div className="flex gap-0 max-w-full">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 max-w-full">
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="flex-1 min-w-0 px-3 py-2.5 bg-white/10 border border-white/20 rounded-l text-white placeholder-white/50 focus:outline-none focus:border-[#d4af37] text-sm"
+                  className="flex-1 px-3 py-2.5 bg-white/10 border border-white/20 rounded sm:rounded-l sm:rounded-r-none text-white placeholder-white/50 focus:outline-none focus:border-[#d4af37] text-sm"
                 />
                 <button
                   type="submit"
                   style={{ backgroundColor: "#d4af37", color: "#003366" }}
-                  className="px-5 py-2.5 rounded-r hover:bg-opacity-90 transition-colors flex-shrink-0"
+                  className="px-4 py-2.5 rounded sm:rounded-l-none sm:rounded-r hover:bg-opacity-90 transition-colors flex-shrink-0 mt-2 sm:mt-0"
                 >
                   <Mail size={18} />
                 </button>
