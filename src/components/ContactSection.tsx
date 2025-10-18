@@ -97,104 +97,122 @@ export default function ContactSection() {
               suppressHydrationWarning={true}
             >
               <div className="mb-6" suppressHydrationWarning={true}>
-                <label
-                  htmlFor="name"
-                  style={{ color: "#003366" }}
-                  className="block mb-2"
-                  suppressHydrationWarning={true}
-                >
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  required
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors"
-                  placeholder="John Doe"
-                  suppressHydrationWarning={true}
-                />
+                <div suppressHydrationWarning={true}>
+                  <label
+                    htmlFor="name"
+                    style={{ color: "#003366" }}
+                    className="block mb-2"
+                    suppressHydrationWarning={true}
+                  >
+                    Full Name
+                  </label>
+                  <div suppressHydrationWarning={true}>
+                    <input
+                      type="text"
+                      id="name"
+                      required
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors"
+                      placeholder="John Doe"
+                      suppressHydrationWarning={true}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="mb-6" suppressHydrationWarning={true}>
-                <label
-                  htmlFor="email"
-                  style={{ color: "#003366" }}
-                  className="block mb-2"
-                  suppressHydrationWarning={true}
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors"
-                  placeholder="john@example.com"
-                  suppressHydrationWarning={true}
-                />
+                <div suppressHydrationWarning={true}>
+                  <label
+                    htmlFor="email"
+                    style={{ color: "#003366" }}
+                    className="block mb-2"
+                    suppressHydrationWarning={true}
+                  >
+                    Email Address
+                  </label>
+                  <div suppressHydrationWarning={true}>
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors"
+                      placeholder="john@example.com"
+                      suppressHydrationWarning={true}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="mb-6" suppressHydrationWarning={true}>
-                <label
-                  htmlFor="phone"
-                  style={{ color: "#003366" }}
-                  className="block mb-2"
-                  suppressHydrationWarning={true}
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors"
-                  placeholder="+1 (555) 000-0000"
-                  suppressHydrationWarning={true}
-                />
+                <div suppressHydrationWarning={true}>
+                  <label
+                    htmlFor="phone"
+                    style={{ color: "#003366" }}
+                    className="block mb-2"
+                    suppressHydrationWarning={true}
+                  >
+                    Phone Number
+                  </label>
+                  <div suppressHydrationWarning={true}>
+                    <input
+                      type="tel"
+                      id="phone"
+                      value={formData.phone}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors"
+                      placeholder="+1 (555) 000-0000"
+                      suppressHydrationWarning={true}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="mb-6" suppressHydrationWarning={true}>
-                <label
-                  htmlFor="message"
-                  style={{ color: "#003366" }}
-                  className="block mb-2"
-                  suppressHydrationWarning={true}
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  rows={5}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors resize-none"
-                  placeholder="Tell us about your stay preferences..."
-                  suppressHydrationWarning={true}
-                />
+                <div suppressHydrationWarning={true}>
+                  <label
+                    htmlFor="message"
+                    style={{ color: "#003366" }}
+                    className="block mb-2"
+                    suppressHydrationWarning={true}
+                  >
+                    Message
+                  </label>
+                  <div suppressHydrationWarning={true}>
+                    <textarea
+                      id="message"
+                      required
+                      value={formData.message}
+                      onChange={(e) =>
+                        setFormData({ ...formData, message: e.target.value })
+                      }
+                      rows={5}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#d4af37] transition-colors resize-none"
+                      placeholder="Tell us about your stay preferences..."
+                      suppressHydrationWarning={true}
+                    />
+                  </div>
+                </div>
               </div>
 
-              <button
-                type="submit"
-                style={{ backgroundColor: "#d4af37", color: "#003366" }}
-                className="w-full py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:shadow-xl"
-                suppressHydrationWarning={true}
-              >
-                Send Message
-              </button>
+              <div suppressHydrationWarning={true}>
+                <button
+                  type="submit"
+                  style={{ backgroundColor: "#d4af37", color: "#003366" }}
+                  className="w-full py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:shadow-xl"
+                  suppressHydrationWarning={true}
+                >
+                  Send Message
+                </button>
+              </div>
             </form>
           </motion.div>
 
