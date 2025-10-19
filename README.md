@@ -209,8 +209,8 @@ SMTP_PASS=your-app-password
 STRIPE_SECRET_KEY=sk_live_...
 
 # Docker Registry (for CI/CD)
-# Note: GitHub Container Registry authentication is handled automatically
-# No additional secrets required for GHCR
+DOCKER_USERNAME=your-github-username
+DOCKER_PASSWORD=your-personal-access-token-with-packages-write-scope
 ```
 
 ### Deployment Commands
@@ -241,11 +241,20 @@ ghcr.io/jobet1995/7luck-hotel:master
 ```
 
 **Note for Organization Repositories:**
-If this repository belongs to an organization, ensure that:
+If this repository belongs to an organization, you need to:
 
-1. **Package Creation** is enabled in organization settings
-2. **GITHUB_TOKEN** has `packages: write` permission in repository settings
-3. Or use a **Personal Access Token** with package permissions
+1. **Create a Personal Access Token (PAT):**
+   - Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
+   - Click "Generate new token (classic)"
+   - Select scopes: ✅ `packages:write` and ✅ `repo` (for private repos)
+   - Copy the generated token
+
+2. **Add secrets to your repository:**
+   - Go to repository Settings → Secrets and variables → Actions
+   - Add `DOCKER_USERNAME` = your GitHub username
+   - Add `DOCKER_PASSWORD` = your Personal Access Token
+
+3. **Alternative:** Enable GITHUB_TOKEN permissions in repository settings if the organization allows it
 
 ### Troubleshooting
 
