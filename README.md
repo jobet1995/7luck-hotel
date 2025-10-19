@@ -258,6 +258,7 @@ If this repository belongs to an organization, you need to:
 
 ### Troubleshooting
 
+- **GHCR Permission Denied**: For organization repositories, use a Personal Access Token with `packages:write` scope instead of GITHUB_TOKEN
 - **Port conflicts**: Change ports in `docker-compose.yml` if 3000, 5432, or 6379 are in use
 - **Build issues**: Clear Docker cache with `docker system prune`
 - **Database connection**: Ensure PostgreSQL container is fully started before the app container
