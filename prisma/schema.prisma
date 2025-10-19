@@ -1,0 +1,356 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?
+  role          UserRole  @default(GUEST)
+  phone         String?
+  nationality   String?
+  dateOfBirth   DateTime?
+  loyaltyTier   LoyaltyTier @default(BRONZE)
+  totalStays    Int       @default(0)
+  totalSpent    Float     @default(0)
+  preferences   Json?     // JSON array of preferences
+  avatar        String?
+  isActive      Boolean   @default(true)
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  bookings      Booking[]
+  accounts      Account[]
+  sessions      Session[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Room {
+  id          String     @id @default(cuid())
+  name        String
+  type        RoomType
+  status      RoomStatus @default(AVAILABLE)
+  price       Float
+  capacity    Int        @default(2)
+  size        String     // e.g., "45m²"
+  floor       Int
+  amenities   Json       // JSON array of amenities
+  description String?
+  image       String?
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  bookings    Booking[]
+
+  @@map("rooms")
+}
+
+model Booking {
+  id              String         @id @default(cuid())
+  bookingNumber   String         @unique
+  userId          String
+  roomId          String
+  checkIn         DateTime
+  checkOut        DateTime
+  guests          Int            @default(1)
+  totalAmount     Float
+  status          BookingStatus  @default(CONFIRMED)
+  specialRequests String?
+  paymentStatus   PaymentStatus  @default(PENDING)
+  paymentMethod   String?
+  paymentId       String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  user            User           @relation(fields: [userId], references: [id])
+  room            Room           @relation(fields: [roomId], references: [id])
+
+  @@map("bookings")
+}
+
+model Staff {
+  id          String      @id @default(cuid())
+  employeeId  String      @unique
+  firstName   String
+  lastName    String
+  email       String      @unique
+  phone       String?
+  position    String
+  department  Department
+  status      StaffStatus @default(ACTIVE)
+  hireDate    DateTime
+  salary      Float?
+  managerId   String?
+  avatar      String?
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  manager     Staff?      @relation("StaffManager", fields: [managerId], references: [id])
+  subordinates Staff[]    @relation("StaffManager")
+  maintenanceTasks MaintenanceTask[]
+
+  @@map("staff")
+}
+
+model Inventory {
+  id           String        @id @default(cuid())
+  name         String
+  category     InventoryCategory
+  currentStock Int
+  minStock     Int
+  maxStock     Int
+  unit         String        // e.g., "pieces", "boxes", "liters"
+  unitPrice    Float
+  supplier     String
+  location     String?
+  status       InventoryStatus @default(IN_STOCK)
+  lastRestocked DateTime?
+  expiryDate   DateTime?
+  notes        String?
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("inventory")
+}
+
+model MaintenanceTask {
+  id             String             @id @default(cuid())
+  title          String
+  description    String
+  priority       MaintenancePriority @default(MEDIUM)
+  status         MaintenanceStatus  @default(PENDING)
+  category       MaintenanceCategory
+  location       String
+  assignedToId   String?
+  estimatedHours Float?
+  actualHours    Float?
+  cost           Float?
+  scheduledDate  DateTime?
+  completedDate  DateTime?
+  dueDate        DateTime
+  notes          String?
+  isActive       Boolean            @default(true)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  // Relations
+  assignedTo     Staff?             @relation(fields: [assignedToId], references: [id])
+
+  @@map("maintenance_tasks")
+}
+
+model HotelSettings {
+  id                    String   @id @default(cuid())
+  hotelName             String   @default("7Luck Hotel & Resorts")
+  hotelAddress          String?
+  hotelPhone            String?
+  hotelEmail            String?
+  checkInTime           String   @default("15:00")
+  checkOutTime          String   @default("11:00")
+  currency              String   @default("USD")
+  timezone              String   @default("America/New_York")
+  language              String   @default("en")
+  taxRate               Float    @default(12.0)
+  serviceFee            Float    @default(25.0)
+  cleaningFee           Float    @default(50.0)
+  maintenanceMode       Boolean  @default(false)
+  allowOnlineBookings   Boolean  @default(true)
+  requireEmailConfirmation Boolean @default(true)
+  autoAssignRooms       Boolean  @default(false)
+  enableLoyaltyProgram  Boolean  @default(true)
+  smtpHost              String?
+  smtpPort              String?
+  smtpUsername          String?
+  smtpPassword          String?
+  notificationEmail     String?
+  enableBookingNotifications Boolean @default(true)
+  enableMaintenanceAlerts Boolean @default(true)
+  enableRevenueReports  Boolean  @default(true)
+  reportFrequency       ReportFrequency @default(DAILY)
+  theme                 String   @default("light")
+  primaryColor          String   @default("#003366")
+  secondaryColor        String   @default("#d4af37")
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map("hotel_settings")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  STAFF
+  GUEST
+}
+
+enum LoyaltyTier {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+enum RoomType {
+  STANDARD
+  DELUXE
+  PREMIUM
+  EXECUTIVE
+  ROYAL_VILLA
+  PRESIDENTIAL_SUITE
+}
+
+enum RoomStatus {
+  AVAILABLE
+  OCCUPIED
+  MAINTENANCE
+  CLEANING
+  OUT_OF_ORDER
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CHECKED_IN
+  CHECKED_OUT
+  CANCELLED
+  NO_SHOW
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  REFUNDED
+  FAILED
+}
+
+enum StaffStatus {
+  ACTIVE
+  INACTIVE
+  ON_LEAVE
+  TERMINATED
+}
+
+enum Department {
+  MANAGEMENT
+  FRONT_OFFICE
+  HOUSEKEEPING
+  FOOD_BEVERAGE
+  MAINTENANCE
+  SECURITY
+  SALES_MARKETING
+  IT
+  HR
+  FINANCE
+}
+
+enum InventoryStatus {
+  IN_STOCK
+  LOW_STOCK
+  OUT_OF_STOCK
+  EXPIRED
+  DAMAGED
+}
+
+enum InventoryCategory {
+  LINENS
+  TOILETRIES
+  FOOD_BEVERAGE
+  CLEANING_SUPPLIES
+  ELECTRONICS
+  FURNITURE
+  OFFICE_SUPPLIES
+  MAINTENANCE
+  OTHER
+}
+
+enum MaintenancePriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum MaintenanceStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  ON_HOLD
+}
+
+enum MaintenanceCategory {
+  HVAC
+  PLUMBING
+  ELECTRICAL
+  CARPENTRY
+  PAINTING
+  CLEANING
+  SAFETY
+  EQUIPMENT
+  LANDSCAPING
+  OTHER
+}
+
+enum ReportFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+}
