@@ -232,17 +232,20 @@ git push origin master
 
 ### Docker Registry
 
-Images are automatically pushed to:
+Images are automatically pushed to **GitHub Container Registry**:
 
+```bash
+# GitHub Container Registry
+ghcr.io/jobet1995/7luck-hotel:latest
+ghcr.io/jobet1995/7luck-hotel:master
 ```
-# GitHub Container Registry (default)
-ghcr.io/your-username/7luck-hotel:latest
-ghcr.io/your-username/7luck-hotel:master
 
-# Or Docker Hub (if configured)
-your-dockerhub-username/7luck-hotel:latest
-your-dockerhub-username/7luck-hotel:master
-```
+**Note for Organization Repositories:**
+If this repository belongs to an organization, ensure that:
+
+1. **Package Creation** is enabled in organization settings
+2. **GITHUB_TOKEN** has `packages: write` permission in repository settings
+3. Or use a **Personal Access Token** with package permissions
 
 ### Troubleshooting
 
