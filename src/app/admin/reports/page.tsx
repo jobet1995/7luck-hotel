@@ -106,6 +106,13 @@ export default function ReportsPage() {
                 </SelectContent>
               </Select>
               <Button variant="outline">
+                <Filter className="w-4 h-4 mr-2" />
+                Filter
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => router.push("/admin/reports/export")}
+              >
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>
@@ -229,7 +236,10 @@ export default function ReportsPage() {
               {/* Revenue Trend */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Revenue Trend</CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5" />
+                    Revenue Trend
+                  </CardTitle>
                   <CardDescription>
                     Monthly revenue and booking trends
                   </CardDescription>
@@ -237,8 +247,11 @@ export default function ReportsPage() {
                 <CardContent>
                   <div className="h-80 flex items-end justify-between space-x-2">
                     {revenueData.map((data, index) => (
-                      <div
+                      <motion.div
                         key={data.month}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
                         className="flex flex-col items-center space-y-2"
                       >
                         <div className="text-xs text-slate-600">
@@ -261,7 +274,7 @@ export default function ReportsPage() {
                         <div className="text-xs text-slate-500">
                           ${data.revenue.toLocaleString()}
                         </div>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                   <div className="flex items-center justify-center space-x-6 mt-4">
@@ -377,7 +390,10 @@ export default function ReportsPage() {
             <TabsContent value="guests" className="space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Top Guests</CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="w-5 h-5" />
+                    Top Guests
+                  </CardTitle>
                   <CardDescription>
                     Most valuable customers by spending
                   </CardDescription>
@@ -385,8 +401,11 @@ export default function ReportsPage() {
                 <CardContent>
                   <div className="space-y-4">
                     {topGuests.map((guest, index) => (
-                      <div
+                      <motion.div
                         key={guest.name}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
                         className="flex items-center justify-between p-4 bg-slate-50 rounded-lg"
                       >
                         <div className="flex items-center space-x-3">
@@ -406,7 +425,7 @@ export default function ReportsPage() {
                           </div>
                           <Badge variant="outline">VIP</Badge>
                         </div>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 </CardContent>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { motion } from "motion/react";
 import {
   Plus,
@@ -228,6 +229,13 @@ export default function RoomsPage() {
                 ))}
               </SelectContent>
             </Select>
+            <Button
+              variant="outline"
+              onClick={() => router.push("/admin/rooms/bulk-actions")}
+            >
+              <Filter className="w-4 h-4 mr-2" />
+              Bulk Actions
+            </Button>
           </div>
 
           {/* Room Cards Grid */}
@@ -241,9 +249,11 @@ export default function RoomsPage() {
               >
                 <Card className="hover:shadow-lg transition-shadow">
                   <div className="relative">
-                    <img
+                    <Image
                       src={room.image}
                       alt={room.name}
+                      width={400}
+                      height={250}
                       className="w-full h-48 object-cover rounded-t-lg"
                     />
                     <Badge
@@ -323,8 +333,22 @@ export default function RoomsPage() {
                             <Badge
                               key={amenity}
                               variant="secondary"
-                              className="text-xs"
+                              className="text-xs flex items-center gap-1"
                             >
+                              {amenity === "Free WiFi" && (
+                                <Wifi className="w-3 h-3" />
+                              )}
+                              {amenity === "Parking" && (
+                                <Car className="w-3 h-3" />
+                              )}
+                              {amenity === "Coffee Machine" && (
+                                <Coffee className="w-3 h-3" />
+                              )}
+                              {![
+                                "Free WiFi",
+                                "Parking",
+                                "Coffee Machine",
+                              ].includes(amenity) && "✓"}
                               {amenity}
                             </Badge>
                           ))}

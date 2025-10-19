@@ -209,8 +209,8 @@ SMTP_PASS=your-app-password
 STRIPE_SECRET_KEY=sk_live_...
 
 # Docker Registry (for CI/CD)
-DOCKER_USERNAME=your-dockerhub-username
-DOCKER_PASSWORD=your-dockerhub-password-or-token
+# Note: GitHub Container Registry authentication is handled automatically
+# No additional secrets required for GHCR
 ```
 
 ### Deployment Commands

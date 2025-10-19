@@ -227,7 +227,10 @@ export default function InventoryPage() {
                 Track supplies, amenities, and stock levels
               </p>
             </div>
-            <Button className="bg-blue-900 hover:bg-blue-800">
+            <Button
+              className="bg-blue-900 hover:bg-blue-800"
+              onClick={() => router.push("/admin/inventory/new")}
+            >
               <Plus className="w-4 h-4 mr-2" />
               Add New Item
             </Button>
@@ -249,6 +252,10 @@ export default function InventoryPage() {
                 <div className="text-2xl font-bold text-slate-800">
                   {inventory.length}
                 </div>
+                <p className="text-xs text-slate-500 flex items-center">
+                  <TrendingUp className="w-3 h-3 mr-1 text-green-600" />
+                  +12% from last month
+                </p>
               </CardContent>
             </Card>
             <Card>
@@ -262,6 +269,10 @@ export default function InventoryPage() {
                 <div className="text-2xl font-bold text-slate-800">
                   ${getTotalValue().toLocaleString()}
                 </div>
+                <p className="text-xs text-slate-500 flex items-center">
+                  <TrendingDown className="w-3 h-3 mr-1 text-red-600" />
+                  -3% from last month
+                </p>
               </CardContent>
             </Card>
             <Card>
@@ -275,6 +286,10 @@ export default function InventoryPage() {
                 <div className="text-2xl font-bold text-slate-800">
                   {getLowStockItems()}
                 </div>
+                <p className="text-xs text-slate-500 flex items-center">
+                  <Clock className="w-3 h-3 mr-1 text-blue-600" />
+                  Updated 5 minutes ago
+                </p>
               </CardContent>
             </Card>
             <Card>
@@ -368,8 +383,13 @@ export default function InventoryPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedInventory.map((item) => (
-                    <TableRow key={item.id}>
+                  {sortedInventory.map((item, index) => (
+                    <motion.tr
+                      key={item.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
                       <TableCell>
                         <div>
                           <div className="font-medium">{item.name}</div>
@@ -444,14 +464,21 @@ export default function InventoryPage() {
                               <Plus className="w-4 h-4 mr-2" />
                               Restock
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-600">
+                            <DropdownMenuItem
+                              className="text-red-600"
+                              onClick={() => {
+                                setInventory(
+                                  inventory.filter((i) => i.id !== item.id),
+                                );
+                              }}
+                            >
                               <Trash2 className="w-4 h-4 mr-2" />
                               Remove Item
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </TableCell>
-                    </TableRow>
+                    </motion.tr>
                   ))}
                 </TableBody>
               </Table>

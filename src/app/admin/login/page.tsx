@@ -63,6 +63,7 @@ export default function AdminLoginPage() {
         setError("Invalid admin credentials. Please try again.");
       }
     } catch (err) {
+      console.error("Login error:", err);
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);

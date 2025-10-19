@@ -237,7 +237,10 @@ export default function StaffPage() {
                 Manage employees, roles, and department assignments
               </p>
             </div>
-            <Button className="bg-blue-900 hover:bg-blue-800">
+            <Button
+              className="bg-blue-900 hover:bg-blue-800"
+              onClick={() => router.push("/admin/staff/new")}
+            >
               <Plus className="w-4 h-4 mr-2" />
               Add New Staff
             </Button>
@@ -376,8 +379,13 @@ export default function StaffPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedStaff.map((member) => (
-                    <TableRow key={member.id}>
+                  {sortedStaff.map((member, index) => (
+                    <motion.tr
+                      key={member.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
                       <TableCell>
                         <div className="flex items-center gap-3">
                           <Avatar className="w-10 h-10">
@@ -411,12 +419,13 @@ export default function StaffPage() {
                       </TableCell>
                       <TableCell>
                         <Badge
-                          className={
+                          className={`flex items-center gap-1 ${
                             departmentColors[
                               member.department as keyof typeof departmentColors
                             ]
-                          }
+                          }`}
                         >
+                          <MapPin className="w-3 h-3" />
                           {member.department}
                         </Badge>
                       </TableCell>
@@ -451,7 +460,12 @@ export default function StaffPage() {
                           </SelectContent>
                         </Select>
                       </TableCell>
-                      <TableCell>{formatDate(member.hireDate)}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3 text-slate-400" />
+                          {formatDate(member.hireDate)}
+                        </div>
+                      </TableCell>
                       <TableCell>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
@@ -479,7 +493,7 @@ export default function StaffPage() {
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </TableCell>
-                    </TableRow>
+                    </motion.tr>
                   ))}
                 </TableBody>
               </Table>

@@ -4,9 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import {
-  Calendar,
   Search,
-  Filter,
+  Calendar,
   Eye,
   Edit,
   Trash2,
@@ -15,6 +14,7 @@ import {
   Clock,
   Users,
   MapPin,
+  Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -178,19 +178,19 @@ export default function BookingsPage() {
     setBookings(bookings.filter((booking) => booking.id !== bookingId));
   };
 
+  const getNights = (checkIn: string, checkOut: string) => {
+    const diffTime = Math.abs(
+      new Date(checkOut).getTime() - new Date(checkIn).getTime(),
+    );
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
     });
-  };
-
-  const getNights = (checkIn: string, checkOut: string) => {
-    const diffTime = Math.abs(
-      new Date(checkOut).getTime() - new Date(checkIn).getTime(),
-    );
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
   return (
@@ -227,6 +227,13 @@ export default function BookingsPage() {
               <Button variant="outline">
                 <Calendar className="w-4 h-4 mr-2" />
                 Export
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => router.push("/admin/bookings/new")}
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                New Booking
               </Button>
             </div>
           </div>
@@ -288,6 +295,7 @@ export default function BookingsPage() {
                       <TableHead>Room</TableHead>
                       <TableHead>Check-in</TableHead>
                       <TableHead>Check-out</TableHead>
+                      <TableHead>Nights</TableHead>
                       <TableHead>Guests</TableHead>
                       <TableHead>Amount</TableHead>
                       <TableHead>Status</TableHead>
@@ -322,6 +330,9 @@ export default function BookingsPage() {
                         </TableCell>
                         <TableCell>{formatDate(booking.checkIn)}</TableCell>
                         <TableCell>{formatDate(booking.checkOut)}</TableCell>
+                        <TableCell>
+                          {getNights(booking.checkIn, booking.checkOut)} nights
+                        </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1">
                             <Users className="w-4 h-4" />

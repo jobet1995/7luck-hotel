@@ -302,13 +302,17 @@ export default function GuestsPage() {
                 <SelectValue placeholder="Filter by loyalty" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Tiers</SelectItem>
+                <SelectItem value="all">All Loyalty Tiers</SelectItem>
                 <SelectItem value="Bronze">Bronze</SelectItem>
                 <SelectItem value="Silver">Silver</SelectItem>
                 <SelectItem value="Gold">Gold</SelectItem>
                 <SelectItem value="Platinum">Platinum</SelectItem>
               </SelectContent>
             </Select>
+            <Button variant="outline" onClick={() => setGuests([...guests])}>
+              <Filter className="w-4 h-4 mr-2" />
+              Apply Filters
+            </Button>
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="w-full sm:w-48">
                 <SelectValue placeholder="Sort by" />
@@ -345,8 +349,13 @@ export default function GuestsPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedGuests.map((guest) => (
-                    <TableRow key={guest.id}>
+                  {sortedGuests.map((guest, index) => (
+                    <motion.tr
+                      key={guest.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
                       <TableCell>
                         <div className="flex items-center gap-3">
                           <Avatar className="w-10 h-10">
@@ -362,7 +371,8 @@ export default function GuestsPage() {
                             <div className="font-medium">
                               {guest.firstName} {guest.lastName}
                             </div>
-                            <div className="text-sm text-slate-600">
+                            <div className="text-sm text-slate-600 flex items-center gap-1">
+                              <MapPin className="w-3 h-3" />
                               {guest.nationality}
                             </div>
                           </div>
@@ -403,7 +413,11 @@ export default function GuestsPage() {
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() =>
+                                router.push(`/admin/guests/${guest.id}`)
+                              }
+                            >
                               <Eye className="w-4 h-4 mr-2" />
                               View Profile
                             </DropdownMenuItem>
@@ -422,7 +436,7 @@ export default function GuestsPage() {
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </TableCell>
-                    </TableRow>
+                    </motion.tr>
                   ))}
                 </TableBody>
               </Table>

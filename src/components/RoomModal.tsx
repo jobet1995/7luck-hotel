@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { X, Upload, Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -340,9 +341,11 @@ export default function RoomModal({
               <Label>Room Image</Label>
               <div className="mt-2">
                 {formData.image && (
-                  <img
+                  <Image
                     src={formData.image}
                     alt="Room preview"
+                    width={400}
+                    height={200}
                     className="w-full h-48 object-cover rounded-lg mb-4"
                   />
                 )}

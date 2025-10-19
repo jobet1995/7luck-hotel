@@ -245,7 +245,10 @@ export default function RoomsSection() {
             className="text-center mt-12"
           >
             <button
-              onClick={() => setIsAllRoomsModalOpen(true)}
+              onClick={() => {
+                setIsAllRoomsModalOpen(true);
+                router.push("/rooms");
+              }}
               style={{ backgroundColor: "#d4af37", color: "#003366" }}
               className="px-8 py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:shadow-xl"
             >

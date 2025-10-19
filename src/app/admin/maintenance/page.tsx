@@ -257,11 +257,15 @@ export default function MaintenancePage() {
               <h1 className="text-2xl font-playfair font-bold text-slate-800">
                 Maintenance Management
               </h1>
-              <p className="text-slate-600">
+              <p className="text-slate-600 flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
                 Track facility maintenance tasks and repairs
               </p>
             </div>
-            <Button className="bg-blue-900 hover:bg-blue-800">
+            <Button
+              className="bg-blue-900 hover:bg-blue-800"
+              onClick={() => router.push("/admin/maintenance/new")}
+            >
               <Plus className="w-4 h-4 mr-2" />
               Add New Task
             </Button>
@@ -415,14 +419,17 @@ export default function MaintenancePage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedTasks.map((task) => {
+                  {sortedTasks.map((task, index) => {
                     const daysUntilDue = getDaysUntilDue(task.dueDate);
                     const overdue =
                       isOverdue(task.dueDate) && task.status !== "completed";
 
                     return (
-                      <TableRow
+                      <motion.tr
                         key={task.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
                         className={overdue ? "bg-red-50" : ""}
                       >
                         <TableCell>
@@ -532,7 +539,7 @@ export default function MaintenancePage() {
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </TableCell>
-                      </TableRow>
+                      </motion.tr>
                     );
                   })}
                 </TableBody>
