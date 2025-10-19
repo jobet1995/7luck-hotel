@@ -246,15 +246,25 @@ If this repository belongs to an organization, you need to:
 1. **Create a Personal Access Token (PAT):**
    - Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
    - Click "Generate new token (classic)"
-   - Select scopes: ✅ `packages:write` and ✅ `repo` (for private repos)
-   - Copy the generated token
+   - **Token name:** `7luck-hotel-ghcr`
+   - **Select scopes:** ✅ `packages:write` and ✅ `repo` (for private repos)
+   - **Expiration:** No expiration (or set a long duration)
+   - Click "Generate token" and **copy it immediately** (you won't see it again!)
 
 2. **Add secrets to your repository:**
    - Go to repository Settings → Secrets and variables → Actions
-   - Add `DOCKER_USERNAME` = your GitHub username
-   - Add `DOCKER_PASSWORD` = your Personal Access Token
+   - Click "New repository secret"
+   - **Name:** `DOCKER_USERNAME` → **Value:** `jobet1995` (your GitHub username)
+   - Click "Add secret"
+   - **Name:** `DOCKER_PASSWORD` → **Value:** [paste your PAT from step 1]
+   - Click "Add secret"
 
-3. **Alternative:** Enable GITHUB_TOKEN permissions in repository settings if the organization allows it
+3. **Push to trigger deployment:**
+   ```bash
+   git add .
+   git commit -m "Add GHCR credentials for organization repository"
+   git push origin master
+   ```
 
 ### Troubleshooting
 
